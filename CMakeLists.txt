@@ -10,11 +10,12 @@ find_package(Boost REQUIRED COMPONENTS filesystem system)
 
 include_directories(
   ${libgit2_SOURCE_DIR}/include
-  ${mstch_INCLUDE_DIR})
+  ${mstch_INCLUDE_DIR}
+        ${YAML_CPP_SOURCE_DIR}/include)
 
 add_subdirectory(vendor/libgit2)
 add_subdirectory(vendor/mstch)
+add_subdirectory(vendor/yaml-cpp)
 
-add_executable(${CMAKE_PROJECT_NAME} src/base16_builder.cpp)
-target_link_libraries(${CMAKE_PROJECT_NAME} ${Boost_FILESYSTEM_LIBRARY} git2 mstch)
-
+add_executable(${CMAKE_PROJECT_NAME} src/base16_builder.cpp src/lib/sources.cpp src/lib/sources.h src/lib/assets.h)
+target_link_libraries(${CMAKE_PROJECT_NAME} ${Boost_FILESYSTEM_LIBRARY} git2 mstch YAML_CPP)

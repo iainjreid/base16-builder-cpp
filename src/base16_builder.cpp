@@ -17,48 +17,11 @@ string git_source = "https://github.com";
 void ShowUsage() {
   cout <<
     "Usage: base16-builder\n\n"
-    "Options:\n"
-    "  -h,--help               Show this help message\n"
-    "  -s,--scheme SCHEMA      Specify the schema\n"
-    "  -t,--template TEMPLATE  Specify the template\n";
+    "Commands:\n"
+    "  install  Specify the schema\n"
+    "  update   Specify the template\n";
 
   exit(1);
-}
-
-void ShowError(string message) {
-  cout << "Error: " + message << endl;
-
-  exit(1);
-}
-
-int CloneRepository(string repository_path, string local_path) {
-  git_repository       *clone         = NULL;
-  git_clone_options     clone_opts    = GIT_CLONE_OPTIONS_INIT;
-  git_checkout_options  checkout_opts = GIT_CHECKOUT_OPTIONS_INIT;
-  
-  const string repository_url = git_source + "/" + repository_path;
-  int error;
-  
-  error = git_clone(&clone, repository_url.c_str(), local_path.c_str(), &clone_opts);
-  
-  if (error != 0) {
-    const git_error *err = giterr_last();
-	
-    if (err) printf("ERROR %d: %s\n", err->klass, err->message);
-    else printf("ERROR %d: no detailed info\n", error);
-  }
-  else if (clone) git_repository_free(clone);
-  return error;
-}
-
-fs::path GetAsset(fs::path base_path, fs::path repository_path) {
-  fs::path asset_path = base_path / repository_path;
-  
-  if (!fs::is_directory(asset_path)) {
-    CloneRepository(repository_path.string(), asset_path.string());
-  }
-
-  return asset_path;
 }
 
 int main(int argc, char* argv[]) {
