@@ -1,6 +1,8 @@
 CMakeCache.txt
 CMakeFiles/
 
+*.pc
+*.cbp
 *.cmake
 Makefile
 base16-builder
