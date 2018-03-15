@@ -7,6 +7,7 @@
 #include "git2.h"
 #include "git2/clone.h"
 #include "mstch/mstch.hpp"
+#include "lib/error.h"
 
 #define fs boost::filesystem
 
@@ -56,7 +57,8 @@ int main(int argc, char* argv[]) {
   }
 
   if (base16_scheme.empty() || base16_template.empty()) {
-    ShowError("Please provide both a scheme and a template");
+      const std::string asd= "Please provide both a scheme and a template";
+      (new Error(1, asd))->Fatal();
   }
 
   git_libgit2_init();
