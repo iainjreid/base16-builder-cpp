@@ -2,14 +2,16 @@
 #define BASE16_BUILDER_ASSETS_H
 
 #include <string>
+#include <boost/filesystem.hpp>
 
-class Assets {
-private:
-    struct Private;
-    std::string git_source;
+#define fs boost::filesystem
 
-public:
-    void Clone(std::string, std::string);
+namespace Assets {
+  std::string local_path;
+  std::string git_source;
+
+  void Clone(std::string, std::string);
+  fs::path Retrieve(fs::path, fs::path);
 };
 
 #endif //BASE16_BUILDER_ASSETS_H
