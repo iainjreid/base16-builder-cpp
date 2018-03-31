@@ -7,6 +7,7 @@
 #include "git2.h"
 #include "git2/clone.h"
 #include "mstch/mstch.hpp"
+#include "lib/assets.h"
 #include "lib/error.h"
 
 #define fs boost::filesystem
@@ -62,9 +63,9 @@ int main(int argc, char* argv[]) {
   }
 
   git_libgit2_init();
-  
-  const fs::path scheme_path   = GetAsset(base16_schemes_dir, base16_scheme);
-  const fs::path template_path = GetAsset(base16_templates_dir, base16_template);
+
+  const fs::path scheme_path   = Assets::Retrieve(base16_schemes_dir, base16_scheme);
+  const fs::path template_path = Assets::Retrieve(base16_templates_dir, base16_template);
 
   git_libgit2_shutdown();
 }
